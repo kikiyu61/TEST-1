@@ -35,29 +35,4 @@ Markdown
 
 ---
 
-### 📊 GitHub Stats
 
-name: GitHub-Profile-3D-Contrib
-
-on:
-  schedule: # 每天凌晨 00:00 自動運行
-    - cron: "0 0 * * *"
-  workflow_dispatch: # 支援手動觸發
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    name: generate-github-profile-3d-contrib
-    steps:
-      - uses: actions/checkout@v3
-      - uses: yoshi3861/github-profile-3d-contrib@0.7.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          USERNAME: ${{ github.repository_owner }}
-      - name: Commit & Push
-        run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add -A .
-          git commit -m "generated 3D profile" || exit 0
-          git push
